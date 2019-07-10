@@ -1,0 +1,7 @@
+<div class="event-booking-page">
+  <h2 class="event-booking-page__heading">{{ event.name }}</h2>
+  <h4 class="event-booking-page__subheading">
+    Number of available seats : {{ event.seatsAvailable }}
+  </h4>
+  <app-event-booking-form [event]="event"></app-event-booking-form>
+</div>

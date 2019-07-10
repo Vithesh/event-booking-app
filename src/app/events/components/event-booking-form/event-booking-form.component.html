@@ -1,0 +1,64 @@
+<form class="event-booking-form" fxLayout="column" [formGroup]="form" (submit)="submit($event)" #bookForm="ngForm">
+
+  <div class="event-booking-form__success" *ngIf="isSuccess">Tickets booked</div>
+
+  <mat-form-field class="event-booking-form__input">
+    <input matInput placeholder="Name" formControlName="userName" type="text">
+    <mat-error *ngIf="bookForm.submitted && form.controls['userName'].hasError('required')">
+      Please enter your name
+    </mat-error>
+    <mat-error *ngIf="bookForm.submitted && form.controls['userName'].hasError('pattern')">
+      Only letters and spaces are allowed
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="event-booking-form__input">
+    <input matInput placeholder="Email" formControlName="email" type="email">
+    <mat-error *ngIf="bookForm.submitted && form.controls['email'].hasError('required')">
+      Please enter your email
+    </mat-error>
+    <mat-error *ngIf="bookForm.submitted && form.controls['email'].hasError('email')">
+      Invalid email
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="event-booking-form__input">
+    <input matInput placeholder="Phone" formControlName="phone" type="tel">
+    <mat-error *ngIf="bookForm.submitted && form.controls['phone'].hasError('pattern')">
+      Please enter 10 digit phone number
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="event-booking-form__select">
+    <mat-label>No. of seats</mat-label>
+    <mat-select (selectionChange)="updateAttendees()" formControlName="seats">
+      <mat-option value="1">1</mat-option>
+      <mat-option value="2">2</mat-option>
+      <mat-option value="3">3</mat-option>
+      <mat-option value="4">4</mat-option>
+      <mat-option value="5">5</mat-option>
+      <mat-option value="6">6</mat-option>
+    </mat-select>
+    <mat-error *ngIf="bookForm.submitted && form.controls['seats'].hasError('required')">
+      Please enter number of seats
+    </mat-error>
+    <mat-error *ngIf="bookForm.submitted && form.controls['seats'].hasError('seatsNotAvailable')">
+      Number of seats selected is more than available seats
+    </mat-error>
+  </mat-form-field>
+
+  <ng-container *ngIf="form.controls['seats'].value" formArrayName="attendees">
+    <mat-form-field *ngFor="let attendee of attendeeFormGroup.controls; let i = index;" [formGroupName]="i" class="event-booking-form__input">
+      <input matInput placeholder="Name of Attendee {{i + 2}}" formControlName="name" type="text">
+      <mat-error *ngIf="bookForm.submitted && getAttendeesFormGroup(i).controls['name'].hasError('required')">
+        Please enter the name of Attendee {{i + 2}}
+      </mat-error>
+      </mat-form-field>
+  </ng-container>
+
+  <div class="event-booking-form__actions" fxLayout="row" fxLayoutAlign="space-evenly">
+    <button mat-raised-button type="button" (click)="cancel()" [disabled]="isSuccess">Cancel</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="isSuccess">Submit</button>
+  </div>
+
+</form>

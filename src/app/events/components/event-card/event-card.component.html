@@ -1,0 +1,18 @@
+<mat-card class="event-card">
+  <mat-card-header>
+    <mat-card-title>{{event.name}}</mat-card-title>
+    <mat-card-subtitle>{{event.date | date}}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="https://images.unsplash.com/{{event.imageSlug}}?fit=crop&w=600&q=80" alt="Photo of {{event.name}}">
+  <mat-card-content>
+    <p>
+      {{event.seatsAvailable !== 1 ? event.seatsAvailable + ' seats' : '1 seat' }} available
+    </p>
+  </mat-card-content>
+  <mat-card-actions class="event-card__actions">
+    <a [routerLink]="[event.id]" *ngIf="event.seatsAvailable">
+      <button mat-flat-button color="primary">Book now</button>
+    </a>
+    <button *ngIf="!event.seatsAvailable" mat-button disabled>Sold Out</button>
+  </mat-card-actions>
+</mat-card>

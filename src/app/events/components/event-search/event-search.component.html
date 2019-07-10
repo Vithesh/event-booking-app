@@ -1,0 +1,14 @@
+<div class="event-search">
+  <form name="eventSearchForm" class="event-search__form">
+    <mat-form-field class="event-search__form-field">
+      <input
+        matInput
+        type="text"
+        name="searchInput"
+        [ngModel]="searchModel" (ngModelChange)="change($event)"
+        placeholder="Search events"
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </form>
+</div>

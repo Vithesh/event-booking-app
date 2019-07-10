@@ -1,0 +1,22 @@
+<div
+  class="event-list"
+  fxLayout="row wrap"
+  fxLayout.lt-sm="column"
+  fxLayoutGap="1rem"
+  fxFlexOffset="1rem"
+  fxFlexOffset.lt-sm="0"
+>
+  <ng-container *ngIf="(events | eventSearchFilter: searchText) as searchResults">
+    <ng-container *ngFor="let event of searchResults">
+      <app-event-card
+        fxFlex="0 1 calc(25vw - 1.25rem)"
+        fxFlex.lt-md="0 1 calc(50vw - 1.5rem)"
+        fxFlex.lt-sm="100%"
+        [event]="event"
+      ></app-event-card>
+    </ng-container>
+    <div class="event-list__no-results" *ngIf="!searchResults.length">
+      <h4 class="mat-subheading-1">No results found!</h4>
+    </div>
+  </ng-container>
+</div>

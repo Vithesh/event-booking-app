@@ -1,0 +1,10 @@
+<div class="event-listing-page" fxLayout="column">
+  <div class="event-listing-page__spinner" *ngIf="isLoading">
+    <mat-spinner class="" diameter="40"></mat-spinner>
+  </div>
+  <ng-container *ngIf="!isLoading">
+    <app-event-search [(searchModel)]="searchText"></app-event-search>
+    <app-event-list [events]="events" searchText="{{searchText}}"></app-event-list>
+  </ng-container>
+</div>
+
